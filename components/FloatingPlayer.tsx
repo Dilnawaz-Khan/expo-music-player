@@ -7,16 +7,22 @@ import { Track, useActiveTrack } from 'react-native-track-player'
 import { PlayPauseButton, SkipToNextButton } from '@/components/PlayerControls'
 import { useLastActiveTrack } from '@/hooks/useLastActiveTrack'
 import MovingText from './MovingText'
+import { useRouter } from 'expo-router'
 
 const FloatingPlayer = ({ style }: ViewProps) => {
+	const router = useRouter()
 	const activeTrack = useActiveTrack()
 	const lastActiveTrack = useLastActiveTrack()
 
 	const displayTrack = activeTrack ?? lastActiveTrack
 
+	const handlePress = () => {
+		router.navigate('/player')
+	}
+
 	if (!displayTrack) return null
 	return (
-		<TouchableOpacity activeOpacity={0.9} style={[styles.container, style]}>
+		<TouchableOpacity onPress={handlePress} activeOpacity={0.9} style={[styles.container, style]}>
 			<Fragment>
 				<FastImage
 					source={{
