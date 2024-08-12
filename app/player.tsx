@@ -5,7 +5,7 @@ import PlayerRepeatToggle from '@/components/PlayerRepeatToggle'
 import PlayerVolumeBar from '@/components/PlayerVolumeBar'
 import { Colors } from '@/constants/Colors'
 import { FontSize, ScreenPadding } from '@/constants/Fonts'
-import { unknownArtistImageUri } from '@/constants/images'
+import { unknownArtistImageUri, unknownTrackImageUri } from '@/constants/images'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
 import { defaultStyles, utilsStyles } from '@/styles'
 import { FontAwesome } from '@expo/vector-icons'
@@ -42,7 +42,7 @@ const PlayerScreen = () => {
 					<View style={styles.artworkImageContainer}>
 						<FastImage
 							source={{
-								uri: activeTrack.artwork ?? unknownArtistImageUri,
+								uri: activeTrack.artwork ?? unknownTrackImageUri,
 								priority: FastImage.priority.high,
 							}}
 							resizeMode="cover"

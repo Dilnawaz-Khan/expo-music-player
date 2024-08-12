@@ -21,41 +21,40 @@ const ItemDivider = () => (
 const TracksList = ({ id, tracks, ...flatlistProps }: TracksListProps) => {
 	const queueOffset = useRef(0)
 	const { activeQueueId, setActiveQueueId } = useQueue()
+
 	const handleTrackSelect = async (selectedTrack: Track) => {
-		const trackIndex = tracks.findIndex((track) => track.url == selectedTrack.url)
+		const trackIndex = tracks.findIndex((track) => track.url === selectedTrack.url)
+
 		if (trackIndex === -1) return
 
 		const isChangingQueue = id !== activeQueueId
 
 		if (isChangingQueue) {
-			const beforeTracks = tracks.splice(0, trackIndex)
-			const afterTracks = tracks.splice(trackIndex + 1)
+			const beforeTracks = tracks.slice(0, trackIndex)
+			const afterTracks = tracks.slice(trackIndex + 1)
 
-			//reset the queue
 			await TrackPlayer.reset()
 
-			//construct the new queue
+			// we construct the new queue
 			await TrackPlayer.add(selectedTrack)
 			await TrackPlayer.add(afterTracks)
 			await TrackPlayer.add(beforeTracks)
 
-			// play the currently selected song
 			await TrackPlayer.play()
 
-			//updating the offset
 			queueOffset.current = trackIndex
-
-			//update store queue id
 			setActiveQueueId(id)
 		} else {
 			const nextTrackIndex =
 				trackIndex - queueOffset.current < 0
 					? tracks.length + trackIndex - queueOffset.current
 					: trackIndex - queueOffset.current
+
 			await TrackPlayer.skip(nextTrackIndex)
-			await TrackPlayer.play()
+			TrackPlayer.play()
 		}
 	}
+
 	return (
 		<FlatList
 			data={tracks}

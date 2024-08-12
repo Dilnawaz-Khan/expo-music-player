@@ -30,7 +30,7 @@ const FavouriteScreen = () => {
 				contentInsetAdjustmentBehavior="automatic"
 			>
 				<TracksList
-					id={generateTracksListId('songs', search)}
+					id={generateTracksListId('favourites', search)}
 					scrollEnabled={false}
 					tracks={filteredFavouritesTracks}
 				/>
