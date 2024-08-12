@@ -8,17 +8,24 @@ import FastImage from 'react-native-fast-image'
 import { unknownTrackImageUri } from '@/constants/images'
 import { useQueue } from '@/store/queue'
 import { useRef } from 'react'
+import QueueControls from './QueueControls'
 
 export type TracksListProps = Partial<FlatListProps<Track>> & {
 	id: string
 	tracks: Track[]
+	hideQueueControls?: boolean
 }
 
 const ItemDivider = () => (
 	<View style={{ ...utilsStyles.itemSeparator, marginVertical: 9, marginLeft: 60 }} />
 )
 
-const TracksList = ({ id, tracks, ...flatlistProps }: TracksListProps) => {
+const TracksList = ({
+	id,
+	tracks,
+	hideQueueControls = false,
+	...flatlistProps
+}: TracksListProps) => {
 	const queueOffset = useRef(0)
 	const { activeQueueId, setActiveQueueId } = useQueue()
 
@@ -62,6 +69,9 @@ const TracksList = ({ id, tracks, ...flatlistProps }: TracksListProps) => {
 			renderItem={({ item: track }) => (
 				<TrackListItem track={track} onTrackSelect={handleTrackSelect} />
 			)}
+			ListHeaderComponent={
+				!hideQueueControls ? <QueueControls tracks={tracks} style={{ paddingBottom: 20 }} /> : null
+			}
 			ItemSeparatorComponent={ItemDivider}
 			ListFooterComponent={ItemDivider}
 			ListEmptyComponent={
