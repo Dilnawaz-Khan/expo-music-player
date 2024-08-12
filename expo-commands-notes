@@ -1,0 +1,2 @@
+expo ios clean build command:
+    npx expo prebuild -p ios -clean
