@@ -5,6 +5,7 @@ import { useSetupTrackPlayer } from '@/hooks/useSetupTrackPlayer'
 import { useCallback } from 'react'
 import { useLogTrackPlayerState } from '@/hooks/useLogTrackPlayerState'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { Colors } from '@/constants/Colors'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -30,6 +31,19 @@ const AppLayout = () => {
 							gestureDirection: 'vertical',
 							animationDuration: 400,
 							headerShown: false,
+						}}
+					/>
+					<Stack.Screen
+						name="(modals)/addToPlaylist"
+						options={{
+							presentation: 'modal',
+							headerStyle: {
+								backgroundColor: Colors.background,
+							},
+							headerTitle: 'Add to playlist',
+							headerTitleStyle: {
+								color: Colors.text,
+							},
 						}}
 					/>
 				</Stack>

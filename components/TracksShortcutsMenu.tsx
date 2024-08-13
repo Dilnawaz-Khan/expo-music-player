@@ -37,8 +37,7 @@ const TracksShortcutsMenu = ({ track, children }: TracksShortcutsMenuProps) => {
 			})
 			.with('add-to-playlist', () => {
 				router.push({
-					// @ts-expect-error
-					pathname: '(modal)/addToPlaylist',
+					pathname: '/(modals)/addToPlaylist',
 					params: {
 						trackUrl: track.url,
 					},
