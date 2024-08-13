@@ -7,6 +7,7 @@ import { Colors } from '@/constants/Colors'
 import { FontSize, ScreenPadding } from '@/constants/Fonts'
 import { unknownArtistImageUri, unknownTrackImageUri } from '@/constants/images'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
+import { useTrackPlayerFavorite } from '@/hooks/useTrackPlayerFavourite'
 import { defaultStyles, utilsStyles } from '@/styles'
 import { FontAwesome } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -20,9 +21,7 @@ const PlayerScreen = () => {
 	const { imageColors } = usePlayerBackground(activeTrack?.artwork || unknownArtistImageUri)
 	const { top, bottom } = useSafeAreaInsets()
 
-	const isFavourite = false
-
-	const toggleFavourite = () => {}
+	const { isFavorite, toggleFavorite } = useTrackPlayerFavorite()
 
 	if (!activeTrack)
 		return (
@@ -69,11 +68,11 @@ const PlayerScreen = () => {
 									</View>
 									{/* Favourite button icon */}
 									<FontAwesome
-										name={isFavourite ? 'heart' : 'heart-o'}
+										name={isFavorite ? 'heart' : 'heart-o'}
 										size={20}
-										color={isFavourite ? Colors.primary : Colors.icon}
+										color={isFavorite ? Colors.primary : Colors.icon}
 										style={{ marginHorizontal: 14 }}
-										onPress={toggleFavourite}
+										onPress={toggleFavorite}
 									/>
 								</View>
 
